@@ -10,27 +10,29 @@ int main() {
 	return(0);
 }
 
-void menu(int msg){
+void menu(int msg)
+{
 	system("CLS");
 	if (msg == 0){
-		cout << "The File Editor" << endl << endl; //message that will come up
+		cout << "\tWelcome to Text Editor" << endl;
+		cout << "\t----------------------" << endl; //message that will come up
 	}
 	if (msg == 1){
-		cout << "The File Editor" << endl << endl; 
+		cout << "File Created Successfully" << endl << endl; 
 	}
 	if (msg == 2){
-		cout << "The File Editor" << endl << endl;
+		cout << "File Updated Successfully" << endl << endl;
 	}
 	if (msg == 3){
-		cout << "The File Editor" << endl << endl;
+		cout << "See You Again Soon!!" << endl << endl;
 	}
 	
-	cout << "Menu" << endl; //menu
-	cout << "Menu" << endl; //features, create
-	cout << "Menu" << endl; // delete
-	cout << "Menu" << endl; // copy
-	cout << "Menu" << endl;
-	cout << "Menu" << endl;
+	cout << "====TEXT EDITOR MENU==== \n\n"<< endl; //menu
+	cout << "Please choose what you wish to do:" << endl; //features, create
+	cout << "1. Create a File" << endl; // delete
+	cout << "2. Add to File" << endl; // copy
+	cout << "3. Print File Content" << endl;
+	cout << "4.Exit" << endl;
 	cout << "Please enter the number: ";
 	
 	int choice = 0;
@@ -43,34 +45,59 @@ void menu(int msg){
 		cout << endl << "Please enter the name of the file: ";
 		cin.ignore();
 		getline(cin, filename);
-		fstream myfile((filename + ".txt").c_str());
+		ofstream myfile((filename + ".txt").c_str());
 		myfile.close();
 		menu(1);
 		cin >> choice;
 	}
 	
 	if(choice == 2){
-		cout << endl << "Please enter the name of the file: ";
+		text = "";
+		cout << endl << "Enter name of file: ";
 		cin >> filename;
-		if(remove((filename + ".txt").c_str()) == 0){
-			
-		}
-	
-	if(choice == 3{
-		cout << endl << "Please enter the name of the file to copy from: ";
-		cin.ignore();
-		getline(cin, filename);
-		fstream myfile((filename + ".txt").c_str());
+		cout << endl << "Enter text to write to file: (Enter END to complete)" << endl;
+		ofstream myfile;
+		myfile.open((filename + ".txt").c_str(), ios::app);
 		string line;
-		while(getline(myfile, line)){
-			text += line + "\n";
+		cin.ignore();
+		while (getline(cin, line))
+		{
+			if(line.size() >= 3){
+				if(line.substr(line.size() - 3) == "END"){
+					text += line.substr(0, line.size()-3);
+					break;
+				}
+				else{
+					text  += line+"\n";
+				}
+			}
+			else{
+				text  += line+"\n";
+			}
 		}
-		myfile.close());
-		cout << endl << "Enter the name of the file to copy to: ";
-		
+		myfile<<text;
+		myfile.close();
+		menu(2);
+		cin>>choice;
 		
 	}
 	
+	if(choice == 3){
+		text = "";
+		cout<<endl<<"Enter name of file ";
+		cin>>filename;
+		fstream myfile;
+		myfile.open((filename + ".txt").c_str());
+		while (getline(myfile, text)){
+			cout << text << "\n";
+		}
+		myfile.close();
+		char now;
+		cout<<endl<<"End of file. Press any key for main menu: ";
+		menu(2);
+		cin.ignore();
+	}
+}
 //	if(choice == 4){
 //		cout << endl << "Please enter the name of the file: ";
 //		cin.ignore();
@@ -90,4 +117,3 @@ void menu(int msg){
 //		menu(1);
 //		cin >> choice;
 //	}
-}
