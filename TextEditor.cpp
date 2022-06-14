@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <stack>
 #include <chrono>
 #include <thread>
 using namespace std;
